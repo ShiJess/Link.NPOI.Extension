@@ -10,3 +10,14 @@
     * 导出前设置全局文档信息【作者，等信息】
     * csv扩展支持 —— 通过继承IWorkbook接口实现
     * 添加workbook创建工厂
+
+
+### 注意
+
+* `Link.NPOI.Crypto`项目采用`LGPL`开源协议，因为其基于`ooxmlcrypto`修改，而`ooxmlcrypto`采用的是`LGPL`协议
+
+
+### 参考
+
+* [NPOI](https://github.com/tonyqus/npoi)
+* [Office加密：ooxmlcrypto](https://code.google.com/archive/p/ooxmlcrypto/)

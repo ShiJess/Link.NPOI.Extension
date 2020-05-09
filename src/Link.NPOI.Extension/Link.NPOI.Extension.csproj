@@ -8,27 +8,19 @@
     <FileVersion>0.0.0.1</FileVersion>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicenseFile></PackageLicenseFile>
     <Version>0.0.1-beta</Version>
     <PackageProjectUrl>https://github.com/ShiJess/Link.NPOI.Extension</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ShiJess/Link.NPOI.Extension</RepositoryUrl>
     <PackageTags>NPOI</PackageTags>
     <Authors>Jess</Authors>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>-->
-
-  <ItemGroup>
-    <None Remove="App.config" />
-    <None Remove="packages.config" />
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="NPOI" Version="2.4.1" />

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Link.NPOI.Extension
 {
-    class Class1
+  public  class Class1
     {
+        public void a()
+        {
+
+        }
     }
 }

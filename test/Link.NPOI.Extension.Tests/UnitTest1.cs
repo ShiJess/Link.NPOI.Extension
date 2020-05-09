@@ -8,7 +8,10 @@ namespace Link.NPOI.Extension.Tests
         [Fact]
         public void Test1()
         {
-
+            Class1 a = new Class1();
+            a.a();
+         
+            Assert.NotNull(a);
         }
     }
 }
