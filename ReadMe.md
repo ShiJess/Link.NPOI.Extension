@@ -1,5 +1,8 @@
 ## Link.NPOI.Extension
 
+* tool——部分辅助工具
+    * Link.ImportExport.MappingEditor —— 映射关系配置工具
+
 ### RoadMap
 
 * Excel-NPOI扩展库

@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/ShiJess/Link.NPOI.Extension</RepositoryUrl>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <PackageTags>NPOI,ooxmlcrypto,ooxml,password,protected</PackageTags>
+    <PackageIcon>Link.NPOI.Extension.png</PackageIcon>
   </PropertyGroup>
 
 
@@ -27,6 +28,13 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard20' ">
     <PackageReference Include="System.IO.Packaging" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Link.NPOI.Extension.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 

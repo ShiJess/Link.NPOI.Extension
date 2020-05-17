@@ -9,9 +9,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9E5CA001-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Link.NPOI.Extension.Tests", "test\Link.NPOI.Extension.Tests\Link.NPOI.Extension.Tests.csproj", "{D0304D44-643D-4AF5-A746-36D24217392D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Link.NPOI.Crypto", "src\Link.NPOI.Crypto\Link.NPOI.Crypto.csproj", "{5D683B81-C2A6-4595-A0E9-7FF2ECC41632}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Link.NPOI.Crypto", "src\Link.NPOI.Crypto\Link.NPOI.Crypto.csproj", "{5D683B81-C2A6-4595-A0E9-7FF2ECC41632}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Link.NPOI.Crypto.Tests", "test\Link.NPOI.Crypto.Tests\Link.NPOI.Crypto.Tests.csproj", "{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Link.NPOI.Crypto.Tests", "test\Link.NPOI.Crypto.Tests\Link.NPOI.Crypto.Tests.csproj", "{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{4F249CEB-7658-4ED9-B031-92DDFD373ED3}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{E4EE91C1-C173-4844-B8C6-00D612030C6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Link.ImportExport.MappingEditor", "tool\Link.ImportExport.MappingEditor\Link.ImportExport.MappingEditor.csproj", "{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +62,14 @@ Global
 		{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD}.Release|x86.ActiveCfg = Release|Any CPU
 		{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD}.Release|x86.Build.0 = Release|Any CPU
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Debug|x86.ActiveCfg = Debug|x86
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Debug|x86.Build.0 = Debug|x86
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Release|x86.ActiveCfg = Release|x86
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +77,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D0304D44-643D-4AF5-A746-36D24217392D} = {9E5CA001-4F83-4700-8513-96A9161B9CEE}
 		{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD} = {9E5CA001-4F83-4700-8513-96A9161B9CEE}
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7} = {E4EE91C1-C173-4844-B8C6-00D612030C6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B14470B4-C186-4204-90A5-916DEF0420FE}

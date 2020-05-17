@@ -1,0 +1,47 @@
+﻿<Window x:Class="Link.ImportExport.MappingEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Link.ImportExport.MappingEditor"
+        mc:Ignorable="d"
+        Title="映射关系配置编辑器" Height="400" Width="600" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}"></Binding>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Menu x:Name="menu" VerticalAlignment="Top"  >
+            <MenuItem Header="文件">
+                <MenuItem Header="打开文件" Command="{Binding OpenMappingFileCommand}"></MenuItem>
+                <MenuItem Header="保存文件" Command="{Binding SaveMappingFileCommand}"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid DataContext="{Binding Config}"  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock>表名</TextBlock>
+            <TextBox Text="{Binding Alias,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  Grid.Column="1"></TextBox>
+            <DataGrid Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Relations,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="列名" Binding="{Binding ColumnName}"  Width="*"></DataGridTextColumn>
+                    <DataGridTextColumn Header="映射中文名" Binding="{Binding Alias}" Width="*"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" >
+            <TextBlock Text="{Binding FullFileName}"></TextBlock>
+        </StatusBar>
+    </Grid>
+</Window>

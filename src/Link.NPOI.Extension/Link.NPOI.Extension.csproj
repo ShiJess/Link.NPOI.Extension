@@ -9,13 +9,14 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageLicenseFile></PackageLicenseFile>
-    <Version>0.0.1-beta</Version>
+    <Version>0.0.0.1-beta</Version>
     <PackageProjectUrl>https://github.com/ShiJess/Link.NPOI.Extension</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ShiJess/Link.NPOI.Extension</RepositoryUrl>
-    <PackageTags>NPOI</PackageTags>
+    <PackageTags>NPOI,Excel</PackageTags>
     <Authors>Jess</Authors>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>Link.NPOI.Extension.png</PackageIcon>
   </PropertyGroup>
 
   <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
@@ -28,6 +29,13 @@
 
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Link.NPOI.Extension.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <!--<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
