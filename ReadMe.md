@@ -33,7 +33,8 @@
 * [Excel文件格式列表](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.office.interop.excel.xlfileformat)
 * Biff2格式Excel解析参考
     * [OldExcelExtractor.cs](https://github.com/nissl-lab/npoi/blob/master/main/HSSF/Extractor/OldExcelExtractor.cs)
-    * [excelfileformat.pdf 113页：Worksheet/Workbook Records](https://github.com/ShiJess/Jess.DotNet.SmartExcel/blob/main/docs/excelfileformat.pdf)
+    * [Jess.DotNet.SmartExcel](https://github.com/ShiJess/Jess.DotNet.SmartExcel)
+        * [excelfileformat.pdf 113页：Worksheet/Workbook Records](https://github.com/ShiJess/Jess.DotNet.SmartExcel/blob/main/docs/excelfileformat.pdf)
 
 
 ### 注意
