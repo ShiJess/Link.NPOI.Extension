@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1340
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Link.NPOI.Extension", "src\Link.NPOI.Extension\Link.NPOI.Extension.csproj", "{E0A4EB82-97CE-46C9-8607-98DF93838681}"
 EndProject
@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{4F249CEB-7658-4E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{E4EE91C1-C173-4844-B8C6-00D612030C6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Link.ImportExport.MappingEditor", "tool\Link.ImportExport.MappingEditor\Link.ImportExport.MappingEditor.csproj", "{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Link.ImportExport.MappingEditor", "tool\Link.ImportExport.MappingEditor\Link.ImportExport.MappingEditor.csproj", "{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +45,8 @@ Global
 		{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F539FD3-F92F-44A8-86C8-FA64D6AFD2AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Debug|Any CPU.Build.0 = Debug|x86
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AB1E8B6-EE81-4C43-8404-A2CFD88934F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
