@@ -1,5 +1,9 @@
-﻿using NPOI.HSSF.UserModel;
+﻿using Link.NPOI.Extension.DataAnnotations;
+using Link.NPOI.Extension.Record;
+using NPOI.HSSF.Record;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using NPOI.Util;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -338,6 +342,281 @@ namespace Link.NPOI.Extension
             }
             return table;
         }
+
+
+        public static bool Export<T>(string fullfilename, List<T> obj)
+        {
+            if (obj == null)
+                return false;
+
+            try
+            {
+                IWorkbook workbook = null;
+
+                if (fullfilename.ToLower().EndsWith(".xlsx"))
+                {
+                    workbook = new XSSFWorkbook();
+                }
+                else
+                {
+                    workbook = new HSSFWorkbook();
+                }
+
+                PropertyInfo[] props = typeof(T).GetProperties();
+                Dictionary<string, string> pairs = new Dictionary<string, string>();
+                foreach (var item in props)
+                {
+                    var ignoreattrs = item.GetCustomAttributes(typeof(ColumnIgnoreAttribute), false).Cast<ColumnIgnoreAttribute>();
+                    if (ignoreattrs.Count() > 0)
+                        continue;
+
+                    string key = item.Name;
+                    string value = key;
+                    var attrs = item.GetCustomAttributes(typeof(ColumnHeaderAttribute), false).Cast<ColumnHeaderAttribute>();
+                    if (attrs.Count() > 0)
+                        value = attrs.First().Name;
+                    pairs.Add(key, value);
+                }
+
+                ISheet sheet = workbook.CreateSheet();
+
+                #region 设置表头
+                IRow columnheadrow = sheet.CreateRow(0);
+                int columnheadnum = 0;
+
+                foreach (var item in pairs)
+                {
+                    ICell cell = columnheadrow.CreateCell(columnheadnum);
+                    cell.SetCellValue(item.Value);
+                    columnheadnum++;
+                }
+                #endregion
+
+                #region 设置数据内容
+                int rownum = 1;
+
+                foreach (object item in obj)
+                {
+                    IRow row = sheet.CreateRow(rownum);
+                    int columnnum = 0;
+                    foreach (var item1 in pairs)
+                    {
+                        var propsel = from c in props where c.Name.ToLower().Equals(item1.Key.ToLower()) select c;
+                        if (propsel == null || propsel.Count() <= 0)
+                        {
+                            columnnum++;
+                            continue;
+                        }
+                        PropertyInfo prop = propsel.FirstOrDefault();
+                        ICell cell = row.CreateCell(columnnum);
+                        cell.SetCellValue((prop.GetValue(item, null) ?? "").ToString());
+                        columnnum++;
+                    }
+                    rownum++;
+                }
+                #endregion
+
+                using (FileStream fs = File.Create(fullfilename))
+                {
+                    workbook.Write(fs);
+                    Console.WriteLine("导出成功！");
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        public static List<T> Import<T>(string fullfilename, int sheetIndex = 0)
+        {
+
+            try
+            {
+                using (Stream stream = new FileStream(fullfilename, FileMode.Open))
+                {
+
+
+                    IWorkbook workbook = null;
+
+                    if (fullfilename.ToLower().EndsWith(".xlsx"))
+                    {
+                        workbook = new XSSFWorkbook(stream);
+                    }
+                    else
+                    {
+                        workbook = new HSSFWorkbook(stream);
+                    }
+
+                    ISheet sheet = workbook.GetSheetAt(sheetIndex);
+
+                    List<T> table = GetObjDataOnSheet<T>(workbook, sheet, 0);
+
+                    return table;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+
+        private static List<T> GetObjDataOnSheet<T>(IWorkbook workbook, ISheet sheet, int headerRowIndex)
+        {
+            if (sheet == null
+                || headerRowIndex < 0)
+                return null;
+
+            List<T> table = new List<T>();
+            try
+            {
+
+                PropertyInfo[] props = typeof(T).GetProperties();
+                Dictionary<string, string> pairs = new Dictionary<string, string>();
+                foreach (var item in props)
+                {
+                    var ignoreattrs = item.GetCustomAttributes(typeof(ColumnIgnoreAttribute), false).Cast<ColumnIgnoreAttribute>();
+                    if (ignoreattrs.Count() > 0)
+                        continue;
+
+                    string key = item.Name;
+                    string value = key;
+                    var attrs = item.GetCustomAttributes(typeof(ColumnHeaderAttribute), false).Cast<ColumnHeaderAttribute>();
+                    if (attrs.Count() > 0)
+                        value = attrs.First().Name;
+                    pairs.Add(key, value);
+                }
+
+                Dictionary<int, string> indexes = new Dictionary<int, string>();
+
+
+                IRow headerRow = sheet.GetRow(headerRowIndex);
+                if (headerRow != null)
+                {
+                    int cellCount = headerRow.LastCellNum;
+                    ICell headerCell = null;
+                    string hearName = string.Empty;
+                    int index = 1;
+                    for (int i = headerRow.FirstCellNum; i < cellCount; i++)
+                    {
+                        headerCell = headerRow.GetCell(i);
+                        if (headerCell != null)
+                        {
+                            hearName = headerRow.GetCell(i).StringCellValue.Trim();
+
+                            var pair = pairs.Where(p => p.Value == hearName);
+                            if (pair.Count() > 0)
+                                indexes.Add(i, pair.First().Key);
+                        }
+                        else
+                        {
+                            cellCount = i;
+                            break;
+                        }
+                    }
+                    int rowCount = sheet.LastRowNum;
+                    IRow row = null;
+
+                    for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++)
+                    {
+                        row = sheet.GetRow(i);
+                        if (row == null)
+                            continue;
+
+                        //T dataRow = default(T);
+                        T dataRow = System.Activator.CreateInstance<T>();
+                        bool isEffective = false;
+                        ICell cell = null;
+                        string cellValue = string.Empty;
+                        for (int j = row.FirstCellNum; j < cellCount; j++)
+                        {
+                            cell = row.GetCell(j);
+                            if (cell != null)
+                            {
+                                //if (string.IsNullOrEmpty(cell.CellFormula) == false)
+                                //{
+                                //    HSSFFormulaEvaluator evaluator = new HSSFFormulaEvaluator(sheet, workbook);
+                                //    cell = evaluator.EvaluateInCell(cell);
+                                //}
+
+                                switch (cell.CellType)
+                                {
+                                    case CellType.Numeric:
+                                        if (DateUtil.IsCellDateFormatted(cell))
+                                        {
+                                            cellValue = cell.DateCellValue.ToString("yyyy-MM-dd");
+                                        }
+                                        else
+                                        {
+                                            cellValue = cell.ToString().Trim();
+                                        }
+                                        break;
+                                    //    case HSSFCell.CELL_TYPE_NUMERIC:
+                                    //        {
+                                    //            if (HSSFDateUtil.IsCellDateFormatted(cell))
+                                    //                try
+                                    //                {
+                                    //                    cellValue = cell.DateCellValue.ToString("yyyy-MM-dd");
+                                    //                }
+                                    //                catch
+                                    //                {
+                                    //                    cellValue = cell.ToString().Trim();
+                                    //                }
+                                    //            else
+                                    //                cellValue = cell.NumericCellValue.ToString();
+                                    //        }
+                                    //        break;
+                                    //    case HSSFCell.CELL_TYPE_BOOLEAN:
+                                    //        cellValue = cell.BooleanCellValue.ToString();
+                                    //        break;
+                                    //    case HSSFCell.CELL_TYPE_STRING:
+                                    //        cellValue = cell.StringCellValue.Trim();
+                                    //        break;
+                                    //    case HSSFCell.CELL_TYPE_BLANK:
+                                    //    case HSSFCell.CELL_TYPE_ERROR:
+                                    //    case HSSFCell.CELL_TYPE_FORMULA:
+                                    default:
+                                        cellValue = cell.ToString().Trim();
+                                        break;
+                                }
+
+                                if (isEffective == false && string.IsNullOrEmpty(cellValue) == false)
+                                {
+                                    isEffective = true;
+                                }
+                                //dataRow[j] = cellValue;
+
+                                var propsel = from c in props where c.Name.ToLower().Equals(indexes[j].ToLower()) select c;
+                                if (propsel == null || propsel.Count() <= 0)
+                                {
+                                    continue;
+                                }
+                                PropertyInfo prop = propsel.FirstOrDefault();
+                                prop.SetValue(dataRow, cellValue,null);
+
+                            }
+                        }
+
+                        if (isEffective)
+                        {
+                            //table.Rows.Add(dataRow);
+                            table.Add(dataRow);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                table = null;
+                throw ex;
+            }
+            return table;
+        }
+
     }
 
 }

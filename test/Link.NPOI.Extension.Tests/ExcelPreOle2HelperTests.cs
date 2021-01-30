@@ -9,10 +9,10 @@ using Xunit.Abstractions;
 
 namespace Link.NPOI.Extension.Tests
 {
-    public class ExcelHelperTests
+    public class ExcelPreOle2HelperTests
     {
         private ITestOutputHelper outputHelper { get; set; }
-        public ExcelHelperTests(ITestOutputHelper _outputHelper)
+        public ExcelPreOle2HelperTests(ITestOutputHelper _outputHelper)
         {
             outputHelper = _outputHelper;
         }
@@ -63,10 +63,9 @@ namespace Link.NPOI.Extension.Tests
 
         public class Test
         {
-            [ColumnIgnore]
             public string FirstProp { get; set; }
 
-            [ColumnHeader("列头Second")]
+            [ColumnHeader("列名2")]
             public string SecondProp { get; set; }
         }
         public class Test1
@@ -129,27 +128,35 @@ namespace Link.NPOI.Extension.Tests
             Assert.True(result);
         }
 
-        [Fact]
-        public void Export()
+
+
+        [Fact(DisplayName = "Excel Biff 2格式读取")]
+        public void ImportDataTableFromExcel2()
         {
-            Test test = new Test();
-            test.FirstProp = "test";
-            test.SecondProp = "ttt";
-            List<Test> testlist = new List<Test>();
-            testlist.Add(test);
+            string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testExcel2.xls");
 
-            string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testT.xls");
-            bool result = ExcelHelper.Export<Test>(fullfilename, testlist);
+            var dt = ExcelPreOle2Helper.GetDataOnSheet(fullfilename, 1);
 
-            Assert.True(result);
+            outputHelper.WriteLine(dt.Rows.Count.ToString());
+        }
+
+
+        [Fact(DisplayName = "Excel Biff 2格式读取-测试Codpage")]
+        public void ImportDataTableFromExcel2_Codepage()
+        {
+            string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testCodepage.xls");
+
+            var dt = ExcelPreOle2Helper.GetDataOnSheet(fullfilename, -1);
+
+            outputHelper.WriteLine(dt.Rows.Count.ToString());
         }
 
         [Fact]
         public void Import()
         {
-            string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testT.xls");
+            string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testExcel2.xls");
 
-            List<Test> testlist = ExcelHelper.Import<Test>(fullfilename);
+            List<Test> testlist = ExcelPreOle2Helper.Import<Test>(fullfilename, 0);
 
             Assert.NotEmpty(testlist);
         }

@@ -1,5 +1,10 @@
 ## Link.NPOI.Extension
 
+[![Link.NPOI.Extension](https://img.shields.io/nuget/dt/Link.NPOI.Extension)](https://www.nuget.org/packages/Link.NPOI.Extension) 
+
+[![Link.NPOI.Crypto](https://img.shields.io/nuget/dt/Link.NPOI.Crypto)](https://www.nuget.org/packages/Link.NPOI.Crypto) 
+
+
 * tool——部分辅助工具
     * Link.ImportExport.MappingEditor —— 映射关系配置工具
 
@@ -14,13 +19,23 @@
     * csv扩展支持 —— 通过继承IWorkbook接口实现
     * 添加workbook创建工厂
 
-
-### 注意
-
-* `Link.NPOI.Crypto`项目采用`LGPL`开源协议，因为其基于`ooxmlcrypto`修改，而`ooxmlcrypto`采用的是`LGPL`协议
+* 先实现Helper方式功能
+* 后续继承实现
+* Biff2使用codepage传入参数
 
 
 ### 参考
 
-* [NPOI](https://github.com/tonyqus/npoi)
+* [NPOI](https://github.com/nissl-lab/npoi)
+    * [Tony Qu](https://github.com/tonyqus)    
 * [Office加密：ooxmlcrypto](https://code.google.com/archive/p/ooxmlcrypto/)
+
+* [Excel文件格式列表](https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.office.interop.excel.xlfileformat)
+* Biff2格式Excel解析参考
+    * [OldExcelExtractor.cs](https://github.com/nissl-lab/npoi/blob/master/main/HSSF/Extractor/OldExcelExtractor.cs)
+    * [excelfileformat.pdf 113页：Worksheet/Workbook Records](https://github.com/ShiJess/Jess.DotNet.SmartExcel/blob/main/docs/excelfileformat.pdf)
+
+
+### 注意
+
+* `Link.NPOI.Crypto`项目采用`LGPL`开源协议，因为其基于`ooxmlcrypto`修改，而`ooxmlcrypto`采用的是`LGPL`协议
