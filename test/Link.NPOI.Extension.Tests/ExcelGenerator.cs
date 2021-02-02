@@ -14,6 +14,9 @@ namespace Link.NPOI.Extension.Tests
     /// </summary>
     public class ExcelGenerator
     {
+
+#if NET452
+
         /// <summary>
         /// 格式参考：
         /// https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.office.interop.excel.xlfileformat?view=excel-pia
@@ -48,6 +51,7 @@ namespace Link.NPOI.Extension.Tests
 
         }
 
+#endif
 
         [Fact]
         public void ExportDataTableToBiff2ExcelTest()

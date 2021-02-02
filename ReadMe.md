@@ -20,6 +20,7 @@
     * 添加workbook创建工厂
 
 * 先实现Helper方式功能
+    * 直接判断stream biff版本，自动选择load方式
 * 后续继承实现
 * Biff2使用codepage传入参数
 

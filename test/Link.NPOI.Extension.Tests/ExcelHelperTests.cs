@@ -154,5 +154,18 @@ namespace Link.NPOI.Extension.Tests
             Assert.NotEmpty(testlist);
         }
 
+        [Fact]
+        public void GetFileVersion()
+        {
+            //string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.xlsx");
+            //NextRecord“Ï≥£
+            string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.xls");
+            //string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "testExcel2.xls");
+
+            var version = ExcelHelper.GetExcelFileVersion(fullfilename);
+
+            outputHelper.WriteLine(version.ToString());
+        }
+
     }
 }

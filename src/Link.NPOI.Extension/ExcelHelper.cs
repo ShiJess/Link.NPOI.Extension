@@ -1,7 +1,9 @@
 ﻿using Link.NPOI.Extension.DataAnnotations;
 using Link.NPOI.Extension.Record;
+using NPOI.HSSF.Model;
 using NPOI.HSSF.Record;
 using NPOI.HSSF.UserModel;
+using NPOI.POIFS.FileSystem;
 using NPOI.SS.UserModel;
 using NPOI.Util;
 using NPOI.XSSF.UserModel;
@@ -20,6 +22,47 @@ namespace Link.NPOI.Extension
     /// </summary>
     public sealed class ExcelHelper
     {
+        /// <summary>
+        /// 获取Excel文件版本
+        /// </summary>
+        /// <param name="fullfilename"></param>
+        /// <returns></returns>
+        public static int GetExcelFileVersion(string fullfilename)
+        {
+            using (var stream = new FileStream(fullfilename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                try
+                {
+                    using (var ris = new RecordInputStream(stream))
+                    {
+                        BOFRecordType fileType;
+                        int version;
+
+                        int sid = ris.GetNextSid();
+                        ris.NextRecord();
+
+                        BOFRecord record = new BOFRecord(ris);
+                        fileType = record.Type;
+                        version = record.Version;
+                        return version;
+                    }
+                }
+                catch
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+                    var workbook = WorkbookFactory.Create(stream);
+                    if (workbook is HSSFWorkbook)
+                    {
+                        return 8;
+                    }
+                    else
+                    {
+                        return 10;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 将DataTable数据导出至Excel
         /// </summary>
@@ -180,7 +223,7 @@ namespace Link.NPOI.Extension
         {
             try
             {
-                using (Stream stream = new FileStream(fullfilename, FileMode.Open))
+                using (Stream stream = new FileStream(fullfilename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
 
 
@@ -435,7 +478,7 @@ namespace Link.NPOI.Extension
 
             try
             {
-                using (Stream stream = new FileStream(fullfilename, FileMode.Open))
+                using (Stream stream = new FileStream(fullfilename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
 
 
@@ -596,7 +639,7 @@ namespace Link.NPOI.Extension
                                     continue;
                                 }
                                 PropertyInfo prop = propsel.FirstOrDefault();
-                                prop.SetValue(dataRow, cellValue,null);
+                                prop.SetValue(dataRow, cellValue, null);
 
                             }
                         }

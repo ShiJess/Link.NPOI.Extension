@@ -161,5 +161,15 @@ namespace Link.NPOI.Extension.Tests
             Assert.NotEmpty(testlist);
         }
 
+        [Fact]
+        public void TestGetBiffVersion()
+        {
+            string fullfilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test.xlsx");
+
+            List<Test> testlist = ExcelPreOle2Helper.Import<Test>(fullfilename, 0);
+
+            Assert.NotEmpty(testlist);
+        }
+
     }
 }

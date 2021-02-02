@@ -39,7 +39,7 @@ namespace Link.NPOI.Extension
             DataTable dt = new DataTable();
             dt.TableName = Path.GetFileNameWithoutExtension(fullfilename);
 
-            using (var stream = new FileStream(fullfilename, FileMode.Open))
+            using (var stream = new FileStream(fullfilename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 using (var ris = new RecordInputStream(stream))
                 {
@@ -224,7 +224,7 @@ namespace Link.NPOI.Extension
 
             Dictionary<int, string> indexes = new Dictionary<int, string>();
 
-            using (var stream = new FileStream(fullfilename, FileMode.Open))
+            using (var stream = new FileStream(fullfilename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 using (var ris = new RecordInputStream(stream))
                 {
